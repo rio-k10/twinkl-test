@@ -1,15 +1,15 @@
 name: Mock Deploy App
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'sandbox'
 
 jobs:
-  ci:
+  setup-node:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,25 +24,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Start Vite dev server
-        run: npm run dev
-        env:
-          VITE_PORT: 3000
-
-      - name: Wait for Vite to be ready
-        run: npx wait-on http://localhost:3000
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v5
-        with:
-          runTests: true
-        env:
-          CYPRESS_INSTALL_BINARY: 'true'
-          VITE_PORT: 3000
+      - name: Start Vite dev server and run Cypress tests
+        run: npx start-server-and-test "npm run dev" http://localhost:3000 "npm run cypress"
 
   build-and-deploy:
     runs-on: ubuntu-latest
-    needs: ci
+    needs: setup-node
 
     steps:
       - name: Checkout code
@@ -64,7 +51,6 @@ jobs:
         run: |
           MOCK_REGISTRY=mock.ecr.registry.local/your-app
           echo "Pushing to simulated registry: $MOCK_REGISTRY"
-          # Simulate pushing the image
           echo "Simulating docker push $MOCK_REGISTRY:latest"
 
       - name: Simulate ECS Deployment
