@@ -29,6 +29,12 @@ jobs:
     needs: setup-node
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3 # Ensure the code is checked out here as well
+
+      - name: Install dependencies
+        run: npm install # Ensure dependencies are installed in this job
+
       - name: Run Vitest
         run: npm run test
 
