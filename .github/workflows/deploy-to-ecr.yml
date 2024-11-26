@@ -1,0 +1,74 @@
+name: Mock Deploy App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start Vite dev server
+        run: npm run dev
+        env:
+          VITE_PORT: 3000
+
+      - name: Wait for Vite to be ready
+        run: npx wait-on http://localhost:3000
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: true
+        env:
+          CYPRESS_INSTALL_BINARY: 'true'
+          VITE_PORT: 3000
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t your-app:latest .
+
+      - name: Tag Docker image for mock ECR
+        run: |
+          MOCK_REGISTRY=mock.ecr.registry.local/your-app
+          docker tag your-app:latest $MOCK_REGISTRY:latest
+
+      - name: Push Docker image to a mock registry
+        run: |
+          MOCK_REGISTRY=mock.ecr.registry.local/your-app
+          echo "Pushing to simulated registry: $MOCK_REGISTRY"
+          # Simulate pushing the image
+          echo "Simulating docker push $MOCK_REGISTRY:latest"
+
+      - name: Simulate ECS Deployment
+        run: |
+          echo "Simulating ECS Deployment with Docker image:"
+          echo "Using tag: your-app:latest from mock registry"
+          echo "Deployment successful."
