@@ -66,7 +66,9 @@ const App = () => {
         <div className='flex-1 overflow-y-auto'>
           {error && <p className='text-center text-red-500 h-full'>{error}</p>}
           {loading && posts.length === 0 ? (
-            <Loader />
+            <div className='flex justify-center items-center h-full'>
+              <Loader />
+            </div>
           ) : (
             <PostList
               posts={posts}
