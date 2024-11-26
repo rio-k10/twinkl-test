@@ -20,7 +20,6 @@ describe('PostItem Component', () => {
     it('should render the post title and body', () => {
       render(<PostItem post={mockPost} onDelete={mockOnDelete} />);
 
-      // Check if title and body render correctly
       expect(screen.getByText(mockPost.title)).toBeInTheDocument();
       expect(screen.getByText(mockPost.body)).toBeInTheDocument();
     });
@@ -28,7 +27,6 @@ describe('PostItem Component', () => {
     it('should render the "Remove" button', () => {
       render(<PostItem post={mockPost} onDelete={mockOnDelete} />);
 
-      // Check if the button is rendered
       const button = screen.getByRole('button', { name: /remove/i });
       expect(button).toBeInTheDocument();
     });
@@ -38,11 +36,9 @@ describe('PostItem Component', () => {
     it('should call onDelete with the correct id when "Remove" button is clicked', () => {
       render(<PostItem post={mockPost} onDelete={mockOnDelete} />);
 
-      // Simulate button click
       const button = screen.getByRole('button', { name: /remove/i });
       fireEvent.click(button);
 
-      // Check if mock function was called with the correct ID
       expect(mockOnDelete).toHaveBeenCalledTimes(1);
       expect(mockOnDelete).toHaveBeenCalledWith(mockPost.id);
     });

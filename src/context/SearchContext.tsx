@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define the shape of the context state
 interface SearchState {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -11,10 +10,8 @@ interface SearchContext {
   contextOverride?: SearchState;
 }
 
-// Create the context
 const SearchContext = createContext<SearchState | undefined>(undefined);
 
-// Provider component
 export const SearchProvider = ({
   children,
   contextOverride = undefined
@@ -30,7 +27,6 @@ export const SearchProvider = ({
   );
 };
 
-// Custom hook for consuming the context
 export const useSearchContext = () => {
   const context = useContext(SearchContext);
   if (!context) {

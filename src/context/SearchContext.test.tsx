@@ -55,7 +55,6 @@ describe('SearchContext', () => {
         </SearchProvider>
       );
 
-      // Assert overridden value of searchTerm
       expect(screen.getByTestId('search-term').textContent).toBe('overridden');
     });
   });
