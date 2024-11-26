@@ -122,7 +122,7 @@ This repository contains a React-based application developed as part of the Twin
 
 ## GitHub Actions Workflow
 
-A CI pipeline is included to automate testing and Docker image creation.
+A CI pipeline is included to automate testing and deployment
 
 ### Workflow
 

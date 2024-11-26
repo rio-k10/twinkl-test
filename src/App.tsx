@@ -17,7 +17,7 @@ const App = () => {
   const [page, setPage] = useState<number>(1);
   const mounted = useRef(false);
   const fetchPosts = async (pageNumber: number) => {
-    if (loading) return; // Prevent new fetch if already loading or all posts are loaded
+    if (loading) return;
     setLoading(true);
 
     try {
@@ -57,12 +57,10 @@ const App = () => {
   return (
     <SearchProvider>
       <div className='h-screen flex flex-col bg-blue-50'>
-        {/* Sticky Header */}
         <div className='sticky top-0 z-10 bg-white shadow-md'>
           <Header />
         </div>
 
-        {/* Scrollable PostList */}
         <div className='flex-1 overflow-y-auto'>
           {error && <p className='text-center text-red-500 h-full'>{error}</p>}
           {loading && posts.length === 0 ? (
