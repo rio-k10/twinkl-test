@@ -85,6 +85,11 @@ const PostList: React.FC<PostListProps> = ({
           <Loader />
         </div>
       )}
+      {!loading && filteredPosts.length === 0 && (
+        <div className='flex justify-center items-center h-full'>
+          <p className='text-gray-500'>No posts found.</p>
+        </div>
+      )}
     </div>
   );
 };
