@@ -37,7 +37,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    9;
     const onLoad = () => {
       fetchPosts(1);
     };
