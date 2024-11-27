@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSearchContext } from '../../context/SearchContext';
 import Loader from '@/components/Loader/Loader';
+import PostItem from '../PostItem/PostItem';
 
 interface Post {
   id: number;
@@ -63,21 +64,7 @@ const PostList: React.FC<PostListProps> = ({
     >
       <ul className='grid gap-4'>
         {filteredPosts.map((post) => (
-          <li
-            key={post.id}
-            className='flex justify-between items-center bg-white p-4 border rounded shadow-md'
-          >
-            <div>
-              <h3 className='font-semibold text-blue-600'>{post.title}</h3>
-              <p className='text-sm text-gray-600'>{post.body}</p>
-            </div>
-            <button
-              onClick={() => handleDelete(post.id)}
-              className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition'
-            >
-              Remove
-            </button>
-          </li>
+          <PostItem post={post} onDelete={handleDelete} />
         ))}
       </ul>
       {loading && (
