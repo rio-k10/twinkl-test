@@ -57,39 +57,6 @@ This repository contains a React-based application developed as part of the Twin
     npm run dev
    ```
 
-## Installation
-
-### Prerequisites
-
-- Node.js (v18+)
-- npm or yarn
-
-### Steps
-
-1. Clone the repository:
-
-   ```bash
-   git clone git@github.com:your-username/twinkl-react-tech-test.git
-   cd twinkl-react-tech-test
-   ```
-
-2. Install dependencies:
-
-   ```bash
-    npm install
-   ```
-
-3. Create an .env file in the project root:
-
-   ```plaintext
-    VITE_PORT=3000
-   ```
-
-4. Start the dev server:
-   ```plaintext
-    npm run dev
-   ```
-
 ## Running the Tests
 
 ### Unit Tests with Vitest
@@ -100,7 +67,7 @@ This repository contains a React-based application developed as part of the Twin
    npm run test
    ```
 
-### Unit Tests with Vitest
+### End-To-End Tests with Cypress
 
 1. Run the application in dev mode:
 
